@@ -1,0 +1,45 @@
+#!/bin/sh /etc/rc.common
+#
+# Copyright (c) 2019 Andreas Sandberg
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+
+START=90
+STOP=10
+
+USE_PROCD=1
+PROG=/usr/bin/gosolis
+
+CONFIG=/var/etc/gosolis.toml
+
+validate_gosolis_section() {
+        uci_validate_section gosolis global "${1}" \
+		'port:file' \
+		'baud:uinteger' \
+		'addr:uinteger' \
+		'timeout:string' \
+		'interval:string'
+
+        uci_validate_section gosolis messaging "${1}" \
+		'type:string' \
+		'url:string' \
+		'client_id:string' \
+		'topic:string' \
+		'format:string'
+}
+
+start_service() {
+	/usr/bin/gosolis_uci_config > "${CONFIG}"
+	procd_open_instance
+	procd_set_param command $PROG -c "${CONFIG}" daemon
+        procd_set_param_file /etc/config/gosolis
+        procd_set_param stdout 1
+        procd_set_param stderr 1
+	procd_close_instance
+}
+
+service_triggers() {
+	procd_add_validation validate_gosolis_section
+}

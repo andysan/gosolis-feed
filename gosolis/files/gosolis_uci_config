@@ -1,0 +1,59 @@
+#!/bin/sh
+#
+# Copyright (c) 2019 Andreas Sandberg
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+#
+
+set -e
+
+. "/lib/functions.sh"
+
+echo_opt() {
+    local section=$1
+    local value
+    local prop=$2
+
+    config_get value "$section" "$prop"
+    echo "${prop} = ${value}"
+}
+
+echo_str_opt() {
+    local section=$1
+    local value
+    local prop=$2
+
+    config_get value "$section" "$prop"
+    echo "${prop} = \"${value}\""
+}
+
+generate_global_config() {
+    echo "[inverter]"
+    echo_str_opt global port
+    echo_opt global baud
+    echo_opt global addr
+    echo_str_opt global timeout
+    echo
+    echo "[daemon]"
+    echo_str_opt global interval
+    echo
+}
+
+handle_messaging_ep() {
+    local section="$1"
+
+    echo "[hermes.${section}]"
+    echo_str_opt "$section" type
+    echo_str_opt "$section" url
+    echo_str_opt "$section" client_id
+    echo
+    echo "[[hermes.${section}.topic]]"
+    echo_str_opt "$section" topic
+    echo_str_opt "$section" format
+    echo
+}
+
+config_load gosolis
+generate_global_config
+config_foreach handle_messaging_ep messaging
