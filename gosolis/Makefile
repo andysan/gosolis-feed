@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: Copyright (c) 2019 Andreas Sandberg <andreas@sandberg.uk>
+# SPDX-FileCopyrightText: Copyright (c) 2019, 2022 Andreas Sandberg <andreas@sandberg.uk>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 #
@@ -7,17 +7,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=gosolis
-PKG_VERSION:=0.1
-PKG_REV:=master
+PKG_VERSION:=0.2
 PKG_RELEASE:=1
 
-PKG_MAINTAINER:=Andreas Sandberg <andreas@sandberg.pp.se>
+PKG_MAINTAINER:=Andreas Sandberg <andreas@sandberg.uk>
 PKG_LICENSE:=BSD-3-Clause
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL=https://github.com/andysan/gosolis.git
-PKG_SOURCE_VERSION:=$(PKG_REV)
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_REV).tar.gz
+PKG_SOURCE_URL:=https://github.com/andysan/gosolis.git
+PKG_SOURCE_VERSION:=2c81ed7bd7d6804aa4e1a471acb86fb6d232cfce
+PKG_MIRROR_HASH:=89b5bfb45976820f2dce7025dab7878509153e3828d72d6fe7479f19a7db3f1c
 
 PKG_BUILD_DEPENDS:=golang/host
 PKG_BUILD_PARALLEL:=1

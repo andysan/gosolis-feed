@@ -7,9 +7,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-gosolis
-PKG_VERSION:=0.1
+PKG_VERSION:=0.2
 PKG_RELEASE:=1
-PKG_MAINTAINER:=Andreas Sandberg <andreas@sandberg.pp.se>
+PKG_MAINTAINER:=Andreas Sandberg <andreas@sandberg.uk>
 PKG_LICENSE:=BSD-3-Clause
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)

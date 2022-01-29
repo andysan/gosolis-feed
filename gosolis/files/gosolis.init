@@ -25,6 +25,9 @@ validate_gosolis_section() {
         uci_validate_section gosolis messaging "${1}" \
 		'type:string' \
 		'url:string' \
+		'ca_cert:string' \
+		'auth_cert:string' \
+		'auth_key:string' \
 		'client_id:string' \
 		'topic:string' \
 		'format:string'

@@ -1,5 +1,5 @@
 --
--- SPDX-FileCopyrightText: Copyright (c) 2019 Andreas Sandberg <andreas@sandberg.uk>
+-- SPDX-FileCopyrightText: Copyright (c) 2019, 2022 Andreas Sandberg <andreas@sandberg.uk>
 --
 -- SPDX-License-Identifier: BSD-3-Clause
 --
@@ -90,6 +90,13 @@ o.default = hostname
 o = msg:option(Value, "url", translate("MQTT Server URL"))
 o:depends("type", "mqtt")
 o.default = "tcp://localhost:1883"
+
+o = msg:option(FileUpload, "ca_cert", translate("server CA file (PEM)"))
+o:depends("type", "mqtt")
+o = msg:option(FileUpload, "auth_cert", translate("client certificate file (PEM)"))
+o:depends("type", "mqtt")
+o = msg:option(FileUpload, "auth_key", translate("client private key file (PEM)"))
+o:depends("type", "mqtt")
 
 o = msg:option(Value, "topic", translate("MQTT Topic"))
 o:depends("type", "mqtt")

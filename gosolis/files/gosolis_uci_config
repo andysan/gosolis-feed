@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# SPDX-FileCopyrightText: Copyright (c) 2019 Andreas Sandberg <andreas@sandberg.uk>
+# SPDX-FileCopyrightText: Copyright (c) 2019, 2022 Andreas Sandberg <andreas@sandberg.uk>
 #
 # SPDX-License-Identifier: BSD-3-Clause
 #
@@ -27,6 +27,18 @@ echo_str_opt() {
     echo "${prop} = \"${value}\""
 }
 
+echo_ca_certs() {
+    local section=$1
+    local value
+
+    config_get value "$section" "ca_cert"
+    if [ -n "$value" ]; then
+        echo "ca_certs = [ \"${value}\" ]"
+    else
+        echo "ca_certs = [ ]"
+    fi
+}
+
 generate_global_config() {
     echo "[inverter]"
     echo_str_opt global port
@@ -45,6 +57,10 @@ handle_messaging_ep() {
     echo "[hermes.${section}]"
     echo_str_opt "$section" type
     echo_str_opt "$section" url
+
+    echo_ca_certs "$section"
+    echo_str_opt "$section" auth_key
+    echo_str_opt "$section" auth_cert
     echo_str_opt "$section" client_id
     echo
     echo "[[hermes.${section}.topic]]"
